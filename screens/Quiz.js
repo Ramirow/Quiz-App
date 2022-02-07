@@ -3,6 +3,8 @@ import { View, Text, SafeAreaView, StatusBar, Image, TouchableOpacity, Modal, An
 import { COLORS, SIZES } from '../constants';
 import data from '../data/QuizData';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import RenderProgressBar from './components/ProgressBar'
+import RenderQuestion  from './components/Question'
 
 const Quiz = () => {
 
@@ -70,28 +72,28 @@ const Quiz = () => {
    // ==================================================================================================================
 
     // Questions Sections  -----------------------------------------------------------------------------------------------------------
-    const renderQuestion = () => {
-        return (
-            <View style={{
-                marginVertical: 40
-            }}>
-                {/* Question Counter */}
-                <View style={{
-                    flexDirection: 'row',
-                    alignItems: 'flex-end'
-                }}>
-                    <Text style={{color: COLORS.white, fontSize: 20, opacity: 0.6, marginRight: 2}}>{currentQuestionIndex+1}</Text>
-                    <Text style={{color: COLORS.white, fontSize: 18, opacity: 0.6}}>/ {allQuestions.length}</Text>
-                </View>
+    // const renderQuestion = () => {
+    //     return (
+    //         <View style={{
+    //             marginVertical: 40
+    //         }}>
+    //             {/* Question Counter */}
+    //             <View style={{
+    //                 flexDirection: 'row',
+    //                 alignItems: 'flex-end'
+    //             }}>
+    //                 <Text style={{color: COLORS.white, fontSize: 20, opacity: 0.6, marginRight: 2}}>{currentQuestionIndex+1}</Text>
+    //                 <Text style={{color: COLORS.white, fontSize: 18, opacity: 0.6}}>/ {allQuestions.length}</Text>
+    //             </View>
 
-                {/* Question */}
-                <Text style={{
-                    color: COLORS.white,
-                    fontSize: 30
-                }}>{allQuestions[currentQuestionIndex]?.question}</Text>
-            </View>
-        )
-    }
+    //             {/* Question */}
+    //             <Text style={{
+    //                 color: COLORS.white,
+    //                 fontSize: 30
+    //             }}>{allQuestions[currentQuestionIndex]?.question}</Text>
+    //         </View>
+    //     )
+    // }
     // Options Sectoin -----------------------------------------------------------------------------------------------------------------------------
     const renderOptions = () => {
         return (
@@ -175,34 +177,7 @@ const Quiz = () => {
 
     // ProgressBar Section -------------------------------------------------------------------------------------------
     const [progress, setProgress] = useState(new Animated.Value(0));
-    const progressAnim = progress.interpolate({
-        inputRange: [0, allQuestions.length],
-        outputRange: ['0%','100%']
-    })
-    const renderProgressBar = () => {
-        return (
-            <View style={{
-                width: '100%',
-                height: 20,
-                borderRadius: 20,
-                backgroundColor: '#00000020',
-
-            }}>
-                <Animated.View style={[{
-                    height: 20,
-                    borderRadius: 20,
-                    backgroundColor: COLORS.accent
-                },{
-                    width: progressAnim
-                }]}>
-
-                </Animated.View>
-
-            </View>
-        )
-    }
-
-    // ---------------------------------------------------------------------------------------------------------------
+     // -------------------------------------------------------------------------------------------------------------
     return (
        <SafeAreaView style={{
            flex: 1
@@ -217,10 +192,11 @@ const Quiz = () => {
            }}>
 
                {/* ProgressBar */}
-               { renderProgressBar() }
-
+               <RenderProgressBar progress={ progress}  allQuestions ={allQuestions}/>
+ 
                {/* Question */}
-               {renderQuestion()}
+               {/* {renderQuestion()} */}
+                <RenderQuestion allQuestions = {allQuestions} currentQuestionIndex = {currentQuestionIndex}/>
 
                {/* Options */}
                {renderOptions()}
