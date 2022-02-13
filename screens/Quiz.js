@@ -6,6 +6,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import RenderProgressBar from './components/ProgressBar'
 import RenderQuestion  from './components/Question'
 
+
 const Quiz = () => {
 
     const allQuestions = data;
@@ -69,31 +70,6 @@ const Quiz = () => {
             useNativeDriver: false
         }).start();
     }
-   // ==================================================================================================================
-
-    // Questions Sections  -----------------------------------------------------------------------------------------------------------
-    // const renderQuestion = () => {
-    //     return (
-    //         <View style={{
-    //             marginVertical: 40
-    //         }}>
-    //             {/* Question Counter */}
-    //             <View style={{
-    //                 flexDirection: 'row',
-    //                 alignItems: 'flex-end'
-    //             }}>
-    //                 <Text style={{color: COLORS.white, fontSize: 20, opacity: 0.6, marginRight: 2}}>{currentQuestionIndex+1}</Text>
-    //                 <Text style={{color: COLORS.white, fontSize: 18, opacity: 0.6}}>/ {allQuestions.length}</Text>
-    //             </View>
-
-    //             {/* Question */}
-    //             <Text style={{
-    //                 color: COLORS.white,
-    //                 fontSize: 30
-    //             }}>{allQuestions[currentQuestionIndex]?.question}</Text>
-    //         </View>
-    //     )
-    // }
     // Options Sectoin -----------------------------------------------------------------------------------------------------------------------------
     const renderOptions = () => {
         return (
@@ -159,6 +135,7 @@ const Quiz = () => {
         )
     }
     // --------------------------------------------------------------------------------------------------------------------------
+    // Rendering Next button 
     const renderNextButton = () => {
         if(showNextButton){
             return (
@@ -200,7 +177,6 @@ const Quiz = () => {
 
                {/* Options */}
                {renderOptions()}
-
                {/* Next Button */}
                {renderNextButton()}
 
@@ -264,7 +240,7 @@ const Quiz = () => {
                     height: 130,
                     zIndex: -1,
                     position: 'absolute',
-                    bottom: 0,
+                    bottom: 5,
                     left: 0,
                     right: 0,
                     opacity: 0.5
