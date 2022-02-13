@@ -3,11 +3,8 @@ import { View, Text, SafeAreaView, StatusBar, Image, TouchableOpacity, Modal, An
 import { COLORS, SIZES } from '../constants';
 import data from '../data/QuizData';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import RenderProgressBar from './components/ProgressBar'
-import RenderQuestion  from './components/Question'
 
-
-const Quiz = () => {
+const Quiz3 = () => {
 
     const allQuestions = data;
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
@@ -18,7 +15,6 @@ const Quiz = () => {
     const [showNextButton, setShowNextButton] = useState(false)
     const [showScoreModal, setShowScoreModal] = useState(false)
 
-    // Validate Pressing on one option ------------------------------------------------------------------------
     const validateAnswer = (selectedOption) => {
         let correct_option = allQuestions[currentQuestionIndex]['correct_option'];
         setCurrentOptionSelected(selectedOption);
@@ -31,9 +27,6 @@ const Quiz = () => {
         // Show Next Button
         setShowNextButton(true)
     }
-    // -----------------------------------------------------------------------------------------------------
-
-    // Dealing with next button ------------------------------------------------------------------------
     const handleNext = () => {
         if(currentQuestionIndex== allQuestions.length-1){
             // Last Question
@@ -52,8 +45,6 @@ const Quiz = () => {
             useNativeDriver: false
         }).start();
     }
-    // ==============================================================================================================
-    // Dealing with restart button in last page -------------------------------------------------------------------------
     const restartQuiz = () => {
         setShowScoreModal(false);
 
@@ -70,7 +61,31 @@ const Quiz = () => {
             useNativeDriver: false
         }).start();
     }
-    // Options Sectoin -----------------------------------------------------------------------------------------------------------------------------
+
+
+
+    const renderQuestion = () => {
+        return (
+            <View style={{
+                marginVertical: 40
+            }}>
+                {/* Question Counter */}
+                <View style={{
+                    flexDirection: 'row',
+                    alignItems: 'flex-end'
+                }}>
+                    <Text style={{color: COLORS.white, fontSize: 20, opacity: 0.6, marginRight: 2}}>{currentQuestionIndex+1}</Text>
+                    <Text style={{color: COLORS.white, fontSize: 18, opacity: 0.6}}>/ {allQuestions.length}</Text>
+                </View>
+
+                {/* Question */}
+                <Text style={{
+                    color: COLORS.white,
+                    fontSize: 30
+                }}>{allQuestions[currentQuestionIndex]?.question}</Text>
+            </View>
+        )
+    }
     const renderOptions = () => {
         return (
             <View>
@@ -134,8 +149,6 @@ const Quiz = () => {
             </View>
         )
     }
-    // --------------------------------------------------------------------------------------------------------------------------
-    // Rendering Next button 
     const renderNextButton = () => {
         if(showNextButton){
             return (
@@ -152,9 +165,36 @@ const Quiz = () => {
         }
     }
 
-    // ProgressBar Section -------------------------------------------------------------------------------------------
+
     const [progress, setProgress] = useState(new Animated.Value(0));
-     // -------------------------------------------------------------------------------------------------------------
+    const progressAnim = progress.interpolate({
+        inputRange: [0, allQuestions.length],
+        outputRange: ['0%','100%']
+    })
+    const renderProgressBar = () => {
+        return (
+            <View style={{
+                width: '100%',
+                height: 20,
+                borderRadius: 20,
+                backgroundColor: '#00000020',
+
+            }}>
+                <Animated.View style={[{
+                    height: 20,
+                    borderRadius: 20,
+                    backgroundColor: COLORS.accent
+                },{
+                    width: progressAnim
+                }]}>
+
+                </Animated.View>
+
+            </View>
+        )
+    }
+
+
     return (
        <SafeAreaView style={{
            flex: 1
@@ -169,14 +209,14 @@ const Quiz = () => {
            }}>
 
                {/* ProgressBar */}
-               <RenderProgressBar progress={ progress}  allQuestions ={allQuestions}/>
- 
+               { renderProgressBar() }
+
                {/* Question */}
-               {/* {renderQuestion()} */}
-                <RenderQuestion allQuestions = {allQuestions} currentQuestionIndex = {currentQuestionIndex}/>
+               {renderQuestion()}
 
                {/* Options */}
                {renderOptions()}
+
                {/* Next Button */}
                {renderNextButton()}
 
@@ -199,7 +239,7 @@ const Quiz = () => {
                            padding: 20,
                            alignItems: 'center'
                        }}>
-                           <Text style={{fontSize: 30, fontWeight: 'bold'}}> { score> (allQuestions.length/2) ? 'Congratulations!' : 'Oops!' }</Text>
+                           <Text style={{fontSize: 30, fontWeight: 'bold'}}>{ score> (allQuestions.length/2) ? 'Congratulations!' : 'Oops!' }</Text>
 
                            <View style={{
                                flexDirection: 'row',
@@ -240,7 +280,7 @@ const Quiz = () => {
                     height: 130,
                     zIndex: -1,
                     position: 'absolute',
-                    bottom: 5,
+                    bottom: 0,
                     left: 0,
                     right: 0,
                     opacity: 0.5
@@ -253,4 +293,4 @@ const Quiz = () => {
     )
 }
 
-export default Quiz
+export default Quiz3

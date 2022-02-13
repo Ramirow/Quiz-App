@@ -12,7 +12,9 @@ import {
   Text,
 } from 'react-native';
 import HomeScreen from './screens/Homescreen'
-import Quiz from './screens/Quiz';  
+import Quiz1 from './screens/Quiz1';  
+import Quiz2 from './screens/Quiz2'; 
+import Quiz3 from './screens/Quiz3'; 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
@@ -23,7 +25,9 @@ function App() {
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
         <Stack.Screen name="Home" component={HomeScreen} options={{ title: 'Home' }}/>
-        <Stack.Screen name="Quiz" component={Quiz} options={{ title: 'Quiz' }}/>
+        <Stack.Screen name="level1" component={Quiz1} options={{ title: 'Quiz level 1' }}/>
+        <Stack.Screen name="level2" component={Quiz2} options={{ title: 'Quiz level 2' }}/>
+        <Stack.Screen name="level3" component={Quiz3} options={{ title: 'Quiz level 3' }}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
