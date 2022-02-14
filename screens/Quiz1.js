@@ -4,7 +4,7 @@ import { COLORS, SIZES } from '../constants';
 import data from '../data/QuizData';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-const Quiz1 = () => {
+const Quiz1 = ({navigation}) => {
 
     const allQuestions = data;
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
@@ -46,6 +46,11 @@ const Quiz1 = () => {
         }).start();
     }
     const restartQuiz = () => {
+        navigation.navigate('Home',{ 
+            score1: score,
+            mess1:'congrats you passed the First test'
+            
+        })
         setShowScoreModal(false);
 
         setCurrentQuestionIndex(0);

@@ -24,7 +24,7 @@ function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen name="Home" component={HomeScreen} options={{ title: 'Home' }}/>
+        <Stack.Screen name="Home" component={HomeScreen}  options={{ title: 'Home' }}/>
         <Stack.Screen name="level1" component={Quiz1} options={{ title: 'Quiz level 1' }}/>
         <Stack.Screen name="level2" component={Quiz2} options={{ title: 'Quiz level 2' }}/>
         <Stack.Screen name="level3" component={Quiz3} options={{ title: 'Quiz level 3' }}/>
